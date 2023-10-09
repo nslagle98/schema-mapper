@@ -1,3 +1,4 @@
+import SchemaFields from "./components/SchemaFields"
 import SchemaInput from "./components/SchemaInput"
 
 function App() {
@@ -5,8 +6,10 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
-      <SchemaInput/>
-      
+      <div className="grid grid-cols-2 gap-4">
+          <SchemaInput />
+          <SchemaFields/>      
+      </div>
     </>
   )
 }
