@@ -22,9 +22,6 @@ export default function SchemaInput({ schema,  setSchema }: SchemaInputProps) {
             { !visibleSchema && 
                 <button onClick={handleSubmit} className="border bg-blue-500 text-white self-center rounded-lg text-center p-2 hover:bg-blue-200 hover:text-gray-800">Submit Schema</button>
             }
-            { visibleSchema &&
-                <p>{inputText}</p>
-            }
         </div>
     )
 }
