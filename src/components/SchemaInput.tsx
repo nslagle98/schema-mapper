@@ -5,7 +5,7 @@ interface SchemaInputProps {
     setSchema: ( schema: any ) => void 
 }
 
-export default function SchemaInput({ schema, setSchema }: SchemaInputProps) {
+export default function SchemaInput({ schema,  setSchema }: SchemaInputProps) {
 
     let [inputText, setInputText] = useState("")
     let [visibleSchema, setVisibleSchema ] = useState(false)
@@ -13,7 +13,6 @@ export default function SchemaInput({ schema, setSchema }: SchemaInputProps) {
     function handleSubmit() {
         setSchema(inputText)
         setVisibleSchema(!visibleSchema)
-        console.log(inputText)
     }
 
     return (
