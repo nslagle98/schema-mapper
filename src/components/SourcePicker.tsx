@@ -1,48 +1,40 @@
+import { JsonMetaSchema } from "../types/SchemaTypes"
+import { v4 as uuidv4 } from 'uuid'
 import SourceItem from "./SourceItem"
-import { JsonMetaSchema, Property } from "../types/SchemaTypes"
+import { ReactElement } from "react"
 interface SourcePickerProps {
-    schema: any
+    schema: JsonMetaSchema
 }
 
 export default function SourcePicker({ schema }: SourcePickerProps ) {
-   
-    const jsonParse = parseJsonSchema(schema).flat()
     
     return (
         <>
-            <h2>Parsed Schema</h2>
-            <div>{jsonParse}</div>
+            <div>{extractSchemaButtons(schema?.properties)}</div>
         </>
     )
 
 }
-/*
- * What should this function do?
- * 1. extract all fields from parameters
- * 2. contstruct JSON object that represents the schema w/ key as param name and value as datatype (or child schema)
- *
- */
-export function parseJsonSchema( schema: JsonMetaSchema): any[] {
-   
-    console.log(`Schema => ${JSON.stringify(schema)}`)
-    if(!schema.properties) return []
-    const schemaItems= extractFieldsFromKeys(schema.properties)
-    return schemaItems
 
-}
+export function extractSchemaButtons( properties: any ): ReactElement[] {
+    let buttonList = []
 
-function extractFieldsFromKeys( propertiesObject: any ): any {
+    const depth = 0
+    
+    generateButtons(properties, depth)
+        
+    function generateButtons(properties: any, depth: number) {
 
-    let schemaItems: any[] = []
+        Object.keys(properties).forEach( key => {
+            if(properties[key].type === "object"){
+                buttonList.push( <SourceItem key={ uuidv4() } depth={depth} name={key} type={properties[key].type} /> )
+                generateButtons(properties[key]?.properties, depth+1)
+                return
+            }
+            else buttonList.push( <SourceItem key={uuidv4()} depth={depth} name={key} type={properties[key].type}/> )
 
-    console.log(`Properties => ${JSON.stringify(propertiesObject)}`)
-    Object.keys(propertiesObject).forEach( key => {
-        const property: Property = propertiesObject[key]   
-        if( property.type === "object" && !Array.isArray(property.type)) {
-           schemaItems.push(extractFieldsFromKeys( property.properties))
-        }
-        else return ( <SourceItem name={key} type={property.type}/> )
-    })
-    return schemaItems
+            })
+    }
+    return buttonList
 }
 

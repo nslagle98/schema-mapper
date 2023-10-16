@@ -1,14 +1,11 @@
-import { parseJsonSchema } from "./SourcePicker";
-
-
-
+import {genSchemaButtons} from "./SourcePicker";
 
 test('sample test 1', () => {
     expect( 1 ).toBe(1)
 })
 
-test('parses json schema', () => {
-   expect(parseJsonSchema(JSON.parse(sampleSchemaDef))).toStrictEqual(JSON.parse(expectedResult)) 
+test('correctly generate schema buttons', () => {
+    expect(genSchemaButtons(JSON.parse(sampleSchemaDef).properties)).toHaveLength(6)
 })
 
 const expectedResult = `{

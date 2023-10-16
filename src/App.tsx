@@ -16,7 +16,7 @@ function App() {
 
 
     return (
-        <>
+        <div className="m-10">
             <h1 className="flex justify-center p-8">Schema Mapper</h1>
             <div className="grid grid-cols-2 gap-4">
                 <SchemaInput schema={currSchema}  setSchema={handleSchemaUpdate} />
@@ -25,7 +25,7 @@ function App() {
                     <SourcePicker schema={currSchema}/>
                 }
             </div>
-        </>
+        </div>
    )
 }
 
