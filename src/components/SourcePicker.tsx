@@ -10,7 +10,7 @@ export default function SourcePicker({ schema }: SourcePickerProps ) {
     
     return (
         <>
-            <div>{extractSchemaButtons(schema?.properties)}</div>
+            <div className="flex flex-col">{extractSchemaButtons(schema?.properties)}</div>
         </>
     )
 
