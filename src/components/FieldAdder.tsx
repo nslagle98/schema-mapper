@@ -1,5 +1,10 @@
 
-export default function FieldAdder() {
+interface FieldAdderProps {
+    activateChoosing: () => void
+    
+}
+
+export default function FieldAdder({ activateChoosing }: FieldAdderProps) {
     
     return (
         <div className="bg-gray-100 p-8">
@@ -10,7 +15,10 @@ export default function FieldAdder() {
                 <label>Source Value</label>
                 <input type="text" className="border border-gray-300"/>
                 <label>Target datatype</label>
-                <input type="text" className="border border-gray-300"/>
+                <div className="grid grid-flow-col">
+                    <input type="text" className="border border-gray-300"/>
+                    <button onClick={activateChoosing} className="bg-blue-500 ">Click source field</button>
+                </div>
             </div>
             <div className="flex flex-col items-center ">
             <button className="bg-blue-500 w-40 p-1 m-6 text-white rounded-lg">Add parameter</button>
