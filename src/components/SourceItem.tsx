@@ -1,6 +1,7 @@
 interface SourceItem {
     key: string,
     name: string,
+    path: string,
     type: string
     depth: number
     active: boolean
@@ -33,7 +34,7 @@ export default function SourceItem( props: SourceItem) {
  * which field as the source for their schema
  */
     function clickHandler() {
-
+        console.log(props.path)        
     }
 
     return (

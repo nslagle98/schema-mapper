@@ -22,17 +22,26 @@ export default function SourcePicker({ schema, activelyChoosing }: SourcePickerP
         let buttonList = []
 
             const depth = 0
-            generateButtons(properties, depth)
+            generateButtons(properties, depth, "")
 
-            function generateButtons(properties: any, depth: number) {
+            function generateButtons(properties: any, depth: number, currPath: string ) {
 
                 Object.keys(properties).forEach( key => {
-                        if(properties[key].type === "object"){
-                        buttonList.push( <SourceItem key={ uuidv4() } depth={depth} name={key} type={properties[key].type} active={activelyChoosing}/> )
-                        generateButtons(properties[key]?.properties, depth+1)
+                    const newPath = currPath === "" ? key : `${currPath}.${key}`
+                    if(properties[key].type === "object"){
+                        buttonList.push( 
+                            <SourceItem 
+                                key={ uuidv4() } depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
+                            /> 
+                        )
+                        generateButtons(properties[key]?.properties, depth+1, newPath)
                         return
-                        }
-                        else buttonList.push( <SourceItem key={uuidv4()} depth={depth} name={key} type={properties[key].type} active={activelyChoosing}/> )
+                    }
+                    else buttonList.push(
+                        <SourceItem 
+                            key={uuidv4()} depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
+                        />
+                    )
 
                         })
                 }

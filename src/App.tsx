@@ -8,6 +8,8 @@ function App() {
     let [ currSchema, setCurrSchema ] = useState()
     let [ didSubmit, setDidSubmit ] = useState(false)
     let [ activelyChoosing, setActivelyChoosing ] = useState(false)
+    let [ sourceChoice, setSourceChoice ] = useState(null)
+    let [ userSchema, setUserSchema ] = useState('')
     
     
     function handleSchemaUpdate(schema: any) {
