@@ -12,6 +12,7 @@ export interface JsonMetaSchema extends Property {
     title: string
 }
 
+export type JsonDatatype = "string" | "number" | "integer" | "array" | "object"
 /**
     *
     * JSON schema parameters are hard to stricty type because the properties field isn't an array with keynames, it's an object whose keys

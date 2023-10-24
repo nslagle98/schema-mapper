@@ -2,6 +2,7 @@ import { useState } from "react"
 import FieldAdder from "./components/FieldAdder"
 import SchemaInput from "./components/SchemaInput"
 import SourcePicker from "./components/SourcePicker"
+import { JsonDatatype } from "./types/SchemaTypes"
 
 function App() {
 
@@ -9,8 +10,7 @@ function App() {
     let [ didSubmit, setDidSubmit ] = useState(false)
     let [ activelyChoosing, setActivelyChoosing ] = useState(false)
     let [ sourceChoice, setSourceChoice ] = useState(null)
-    let [ userSchema, setUserSchema ] = useState('')
-    
+    let [ userSchema, setUserSchema ] = useState({}) 
     
     function handleSchemaUpdate(schema: any) {
         setCurrSchema(JSON.parse(schema))
@@ -19,6 +19,17 @@ function App() {
 
     function handleActivateSchemaSourceChoice() {
         setActivelyChoosing(true)
+    }
+
+    function handleChooseSource( path: string) {
+        setActivelyChoosing(false)
+        setSourceChoice(path)
+    }
+    
+    function handleSchemaItemAdd(keyName: string, datatype: JsonDatatype, sourcePath: string) {
+        let newSchema = userSchema
+        newSchema[keyName] = { type: datatype, source: sourcePath }
+        setUserSchema(newSchema)
     }
 
 
@@ -33,7 +44,7 @@ function App() {
                 { didSubmit &&
                 <SourcePicker schema={currSchema} activelyChoosing={activelyChoosing}/>
                 }
-                <FieldAdder  activateChoosing={handleActivateSchemaSourceChoice}/>          
+                <FieldAdder sourceChoice={sourceChoice} addItem={handleSchemaItemAdd} activateChoosing={handleActivateSchemaSourceChoice}/>          
             </div>
         </div>
    )

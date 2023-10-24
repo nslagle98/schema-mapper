@@ -1,11 +1,14 @@
-
+import { useState } from "react"
 interface FieldAdderProps {
     activateChoosing: () => void
-    
+    sourceChoice: string
+    addItem: () => void
 }
 
-export default function FieldAdder({ activateChoosing }: FieldAdderProps) {
-    
+export default function FieldAdder({ activateChoosing, sourceChoice, addItem }: FieldAdderProps) {
+
+    const [ fieldDetails, setFieldDetails ] = useState( { fieldName: "", fieldDatatype: "" } )
+
     return (
         <div className="bg-gray-100 p-8">
             <h2>Add schema parameter</h2>
