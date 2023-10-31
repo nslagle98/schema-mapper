@@ -6,9 +6,10 @@ import { act } from "react-dom/test-utils"
 interface SourcePickerProps {
     schema: JsonMetaSchema
     activelyChoosing: boolean
+    chooseSource: (path: string, dt: string) => void
 }
 
-export default function SourcePicker({ schema, activelyChoosing }: SourcePickerProps ) {
+export default function SourcePicker({ schema, activelyChoosing, chooseSource}: SourcePickerProps ) {
     
     return (
         <div>
@@ -31,7 +32,7 @@ export default function SourcePicker({ schema, activelyChoosing }: SourcePickerP
                     if(properties[key].type === "object"){
                         buttonList.push( 
                             <SourceItem 
-                                key={ uuidv4() } depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
+                                key={ uuidv4() } chooseSource={chooseSource} depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
                             /> 
                         )
                         generateButtons(properties[key]?.properties, depth+1, newPath)
@@ -39,7 +40,7 @@ export default function SourcePicker({ schema, activelyChoosing }: SourcePickerP
                     }
                     else buttonList.push(
                         <SourceItem 
-                            key={uuidv4()} depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
+                            key={uuidv4()} chooseSource={chooseSource} depth={depth} name={key} type={properties[key].type} active={activelyChoosing} path={newPath}
                         />
                     )
 

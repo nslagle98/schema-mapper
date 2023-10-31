@@ -5,8 +5,10 @@ interface SourceItem {
     type: string
     depth: number
     active: boolean
+    chooseSource: (path: string, dt: string) => void
 }
 export default function SourceItem( props: SourceItem) {
+    
     
     const classMap = {
 
@@ -34,7 +36,7 @@ export default function SourceItem( props: SourceItem) {
  * which field as the source for their schema
  */
     function clickHandler() {
-        console.log(props.path)        
+        props.chooseSource(props.path, props.type)
     }
 
     return (

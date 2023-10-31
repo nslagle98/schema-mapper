@@ -9,7 +9,7 @@ function App() {
     let [ currSchema, setCurrSchema ] = useState()
     let [ didSubmit, setDidSubmit ] = useState(false)
     let [ activelyChoosing, setActivelyChoosing ] = useState(false)
-    let [ sourceChoice, setSourceChoice ] = useState(null)
+    let [ sourceChoice, setSourceChoice ] = useState({path: "", dt: ""})
     let [ userSchema, setUserSchema ] = useState({}) 
     
     function handleSchemaUpdate(schema: any) {
@@ -21,15 +21,17 @@ function App() {
         setActivelyChoosing(true)
     }
 
-    function handleChooseSource( path: string) {
+    function handleChooseSource( path: string, dt: string) {
         setActivelyChoosing(false)
-        setSourceChoice(path)
+        setSourceChoice({path: path, dt: dt})
     }
     
     function handleSchemaItemAdd(keyName: string, datatype: JsonDatatype, sourcePath: string) {
         let newSchema = userSchema
         newSchema[keyName] = { type: datatype, source: sourcePath }
+        console.log(JSON.stringify(newSchema))
         setUserSchema(newSchema)
+        setSourceChoice({path:"", dt:""})
     }
 
 
@@ -42,9 +44,11 @@ function App() {
                     <SchemaInput schema={currSchema}  setSchema={handleSchemaUpdate} />
                 }
                 { didSubmit &&
-                <SourcePicker schema={currSchema} activelyChoosing={activelyChoosing}/>
+                <SourcePicker schema={currSchema} activelyChoosing={activelyChoosing} chooseSource={handleChooseSource}/>
                 }
-                <FieldAdder sourceChoice={sourceChoice} addItem={handleSchemaItemAdd} activateChoosing={handleActivateSchemaSourceChoice}/>          
+                <FieldAdder sourceChoice={sourceChoice} handleSchemaItemAdd={handleSchemaItemAdd} activateChoosing={handleActivateSchemaSourceChoice}/>          
+                <div>{JSON.stringify(userSchema)}</div>
+
             </div>
         </div>
    )
