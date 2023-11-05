@@ -2,7 +2,6 @@ import { JsonMetaSchema } from "../types/SchemaTypes"
 import { v4 as uuidv4 } from 'uuid'
 import SourceItem from "./SourceItem"
 import { ReactElement } from "react"
-import { act } from "react-dom/test-utils"
 interface SourcePickerProps {
     schema: JsonMetaSchema
     activelyChoosing: boolean

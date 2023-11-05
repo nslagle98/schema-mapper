@@ -26,10 +26,9 @@ function App() {
         setSourceChoice({path: path, dt: dt})
     }
     
-    function handleSchemaItemAdd(keyName: string, datatype: JsonDatatype, sourcePath: string) {
+    function handleSchemaItemAdd(keyName: string, datatype: JsonDatatype, sourcePath: string, userPath: string) {
         let newSchema = userSchema
         newSchema[keyName] = { type: datatype, source: sourcePath }
-        console.log(JSON.stringify(newSchema))
         setUserSchema(newSchema)
         setSourceChoice({path:"", dt:""})
     }
